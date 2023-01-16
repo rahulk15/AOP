@@ -1,0 +1,393 @@
+Aim :- Implement Contour Plots
+
+Code :-
+using PlotlyJS
+plot(contour(
+z=[
+10 10.625 12.5 15.625 20
+5.625 6.25 8.125 11.25 15.625
+2.5 3.125 5. 8.125 12.5
+0.62 1.25 3.125 6.25 10.625
+0 0.625 2.5 5.625 10
+]'
+))
+
+
+
+2) 
+
+Aim :- Implement Fibonacci and Golden section search.
+# Fibonacci section search
+Code:-
+
+function fibonacci_section_search(f, a, b, n, g=0.01)
+s=(1-0.5)/(1+0.5)
+p=1/(1.618*(1-s^(n+1))/(1-s^n))
+d=p*b+(1-p)*a
+yd=f(d)
+for i in 1:n-1
+print(a)
+
+print("/n")
+print(b)
+print("/n")
+if i==n-1
+c=g*a+(1-g)*d
+else
+c=p*a+(1-p)*b
+end
+yc=f(c)
+if yc<yd
+b,d,yd=d,c,yc
+else
+a,b=b,c
+end
+p=1(1.618*(1-s^(n-i+1))/(1-s^(n-i)))
+end
+return a < b ? (a, b) : (b, a)end
+
+# fibonacci_search (generic function with 3 methods)
+function f(x)
+returnx*x-x+1
+end1
+end
+# f (generic function with 1 method)
+
+Result=fibonacci_section_search(f,-1,1,10)
+
+
+# Golden section search
+
+Code:-
+function golden_section_search(f, a, b, n)
+p=1.618-1
+d=p*b+(1-p)*a
+yd=f(d)
+for i = 1 : n - 1
+c=p*a+(1-p)*b
+yc=f(c)
+if yc<yd
+b, d, yd=d, c, yc
+else
+a, b=b, c
+end
+end
+return a < b ? (a, b) : (b, a)
+end
+# golden_section_search (generic function with 1 method)
+function f(x)
+return x*x
+end
+# f (generic function with 1 method)
+result=golden_section_search(f,2,8,5)
+
+
+
+
+3)
+
+
+
+Aim:- Implement Quadratic Fit Search
+Code:-
+
+function quadratic_fit_search(f,a,b,c,n)
+ya,yb,yc=f(a),f(b),f(c)
+for i in 1:n-3
+print(a,"/n",b,"/n",c,"/n")
+x=0.5*(ya*(b^2-c^2)+yb*(c^2-a^2)+yc*(a^2 -
+b^2))/(ya*(b-c)+yb*(c-a)+yc*(a-b))
+yx=f(x)
+if x > b
+if yx > yb
+c, yc = x, yx
+else
+a, ya, b, yb = b, yb, x, yx
+end
+elseif x < b
+if yx > yb
+a, ya = x, yx
+else
+
+c, yc, b, yb = b, yb, x, yx
+end
+end
+end
+return (a, b, c)
+end
+# quadratic_fit_search (generic function with 1 method)
+
+function f(n)
+return n*n+2*n-1
+end
+# f (generic function with 1 method)
+
+result=quadratic_fit_search(f,1,6,10,5)
+
+
+4) 
+
+
+Aim :- Implement Gradient descent
+
+Code:-
+function gradient_descent(p, q, x1; a=0.1,
+maxiter=1000, g=1e-5)
+x-copy(x1)
+
+f=x -> 0 * x + q
+x2= -f(x)
+iter = 0
+while norm(x2) > g || iter <= maxiter
+iter +=1
+x += a * x2
+x2 = -f(x)
+end
+return x
+end
+# gradient_descent (generic function with 1 method)
+
+p=[10.0 -1.0;
+-1.0 1.0 ];
+q=[0; -10.0];
+x2=zeros(2);
+
+
+
+5)
+
+
+
+Aim :- Implement quasi-Newton methods to find
+the local maxima
+
+Code:-
+
+function newtonsMethodForUnivariate (x_guess,
+max_iter)
+f_1=2 * x_guess
+f_2=2
+converged = false
+iter = 0
+while converged == false
+x_optimum = x_guess - (f_1/f_2)
+x_guess = x_optimum
+println("Iteration : $iter, Current Guess:
+$x_guess")
+if x_guess - 1< 0.01
+converged = true
+end
+if iter>max_iter
+
+converged = true
+end
+iter=iter+1
+end
+end
+# newtonsMethodForUnivariate (generic
+function with 1 method)
+newtonsMethodForUnivariate (3,100)
+
+6)
+
+
+Aim :- Implement the Adagrad method with
+application, RMSprop and Adadelta.
+
+# Adagrad method with application
+Code:-
+
+function ada_grad(x_guess, max_iter, alpha)
+fd=2 * x__guess - 2
+
+Converged = false
+Iter = 0
+prev_sgs = 0
+while converged == false
+delta = alpha * fd
+sgs = prev_sgs + (fd)^2
+x_optimum = x_guess - delta/sqrt(sgs)
+x_guess = x_optimum
+prev_sgs = sgs
+println("Iteration : $iter, current Guess: $x_guess")
+if x_guess - 1 < 0.01
+converged = true
+end
+if iter > max_iter
+converged = true
+end
+iter = iter+1
+end
+end
+# ada_grad (generic function with 1 method)
+
+ada_grad(3,20000,0.01)
+
+Output :-
+Iteration : 10043, current Guess : 1.0101584845215472
+Iteration : 10044, current Guess : 1.0100587087650088
+
+Iteration : 10045, current Guess : 1.0099589379745384
+
+#RMSprop
+
+Code :-
+function rms_prop(x_guess, max_iter, alpha, beta)
+fd = 2 * x_guess - 2
+converged = fasle
+iter = 0
+prev_sgs = 0
+while converged == false
+delta = alpha * fd
+sgs = (prev_sgs * beta ) + ((fd)^2) * (1-beta)
+x_optimum = x_guess - delta/sqrt(sgs)
+x_guess = x_optimum
+prev_sgs = sgs
+println("Iteration : $iter, Current_Guess : $x_guess")
+if x_guess - 1 < 0.01
+converged = true
+end
+if iter>max_iter
+converged = true
+end
+iter=iter+1
+end
+end
+# rms_prop (generic function with 1 method)
+
+rms_prop(3, 4000, 0.01, 0.99)
+
+Output:-
+
+Iteration:95, Current_Guess: 1.0244024028520233
+Iteration:96, Current_Guess: 1.0117305980069258
+Iteration:97, Current_Guess: 0.9990969991751104
+
+# Adadelta
+
+Code:-
+
+function ada_delta(x_guess, max_iter, gamma)
+fd= 2 * x_guess - 2
+converged = false
+iter = 0
+prev_sgs = 0
+Ex = 0
+ep = 1e - 5
+while converged == false
+sgs = (gamma * prev_sgs) +((1-gamma) * (fd^2))
+rms_g = sqrt(sgs + ep)
+rms_x = sqrt(Ex + ep)
+x = (rms_x/rms_g) * fd
+Ex = (gamma * Ex) + ((1-gamma) * (x^2))
+
+prev_sgs = sgs
+x_optimum = x_guess - x
+
+x_guess = x_optimum
+println("Iteration : $iter, Current_Guess : $x_guess")
+
+if x_guess - 1 < 0.00001
+converged = true
+end
+if iter>max_iter
+converged = true
+end
+iter =iter+1
+end
+end
+
+# ada_delta (generic function with 1 method)
+
+ada_delta(3, 400, 0.9)
+
+
+
+7)
+
+
+Aim :- Implement radial basis functions using
+surrogate modelling.
+
+Code:-
+
+using Surrogates
+using Plots
+f=x -> log(x) * x^2 + x^3
+ib=1.0
+ub=10.0
+x = sample(50, ib, ub, SobolSample())
+y = f.(x)
+my_radial_basis = RadialBasis(x,y,ib,ub)
+approx = my_radial_basis(5.4)
+using Plots
+plot(x, y, seriestype=:scatter, label="Sample points",
+xlims=(ib, ub), legend=:top)
+plot!(f, label="True function", xlims=(ib,ub), legend=:top)
+plot!(my_radial_basis, label="Sample points", xlims=(ib, ub),
+legend=:top)
+
+8)
+
+
+Aim:- Apply Random Forest in surrogate Model.
+
+Code:-
+
+using Surrogates
+using Plots
+f(x) = sin(x) + sin(10/3 * x)
+n_samples = 5
+lower_bound = 2.7
+upper_bound = 7.5
+x = sample(n_samples, lower_bound,
+upper_bound, SobolSample())
+y = f.(x)
+scatter(x, y, label="Sampled points",
+xlims=(lower_bound, upper_bound))
+
+plot!(f, label="True function",
+xlims=(lower_bound, upper_bound),
+legend=:top)
+
+
+9)
+
+
+Aim: - Implement Gaussian Process and its application.
+
+Code:-
+
+using GaussianProcesses
+using Random
+Random.seed!(20140430)
+n=10
+x=2*3.14*rand(n)
+y=sin.(x)+0.05*rand(n);
+mZero=MeanZero()
+kern=SE(0.0, 0.0)
+logObsNoise=-1.0
+gp=GP(x, y, mZero, kern, logObsNoise)
+x=0:0.1:2*3.14
+
+Method1
+using Plots
+plot(gp; obsv=false)
+
+optimize!(gp)
+plot(gp; obsv=false, label="Gaussian Process", fmt=:png)
+samples=rand(gp, x, 5)
+plot!(x,samples)
+
+
+10)
+
+Aim :- Path finding using Ant Colony Optimization with an
+application
+
+Code:-
+
+using AntColony
+distance_matrix = rand(10,10)
+aco(distance_matrix, is_tour=true)
+aco(distance_matrix, start_node=1, end_node=5)
